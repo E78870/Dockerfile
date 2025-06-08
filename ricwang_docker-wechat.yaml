@@ -10,10 +10,13 @@ services:
       - GROUP_ID=0
       - WEB_AUDIO=1
       - TZ=Asia/Shanghai
+      - DARK_MODE=1
+      - KEEP_APP_RUNNING=1
+      - WEB_AUDIO=1
     volumes:
-      - /home/docker/wechat/.xwechat:/root/.xwechat
-      - /home/docker/wechat/xwechat_files:/root/xwechat_files
-      - /home/docker/wechat/download:/root/download
+      - /home/fx8350/docker/wechat/.xwechat:/root/.xwechat
+      - /home/fx8350/docker/wechat/xwechat_files:/root/xwechat_files
+      - /home/fx8350/docker/wechat/download:/root/download
       - /dev/snd:/dev/snd
     privileged: true
     restart: always
