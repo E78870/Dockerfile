@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  chinesesubfinder:
+    image: allanpk716/chinesesubfinder
+    container_name: chinesesubfinder
+    hostname: chinesesubfinder
+    network_mode: host
+    environment:
+      - PERMS=false
+      - TZ=Asia/Shanghai
+      - PUID=1000
+      - PGID=100
+      - UMASK=022
+    volumes:
+      - /home/docker/chinesesubfinder:/config
+      - /home/docker/browser:/root/.cache/rod/browser
+      - type: bind
+        source: /mnt/nfs/media/
+        target: /mnt/media
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m
+    restart: always

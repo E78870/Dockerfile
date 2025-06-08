@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  onedrive_01:
+    image: driveone/onedrive:latest
+    container_name: onedrive_01
+    tty: true
+    stdin_open: true
+    volumes:
+      - type: bind
+        source: /home/docker/onedrive/onedrive_conf_01
+        target: /onedrive/conf
+      - type: bind
+        source: /home/docker/nginx_proxy_manager/letsencrypt
+        target: /onedrive/data

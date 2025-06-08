@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  aria2-pro:
+    image: p3terx/aria2-pro
+    container_name: aria2-pro
+    network_mode: host
+    environment:
+      - PUID=${UID}
+      - PGID=${GID}
+      - RPC_SECRET=Mk9TwUJzjvecWmPQaxhzqxGt
+      - RPC_PORT=6800
+      - LISTEN_PORT=6888
+      - IPV6_MODE=true
+    volumes:
+      - /home/docker/aria2-pro:/config
+      - /mnt/nfs/media:/downloads
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: 1m

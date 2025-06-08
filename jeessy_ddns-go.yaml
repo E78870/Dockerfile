@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  ddns-go:
+    image: jeessy/ddns-go
+    container_name: ddns-go
+    network_mode: host
+    volumes:
+      - /home/docker/etc/ddns-go:/root
+    restart: always

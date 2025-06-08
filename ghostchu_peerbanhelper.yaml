@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  peerbanhelper:
+    image: ghostchu/peerbanhelper
+    container_name: peerbanhelper
+    network_mode: host
+    volumes:
+      - /home/docker/peerbanhelper:/app/data
+    restart: always

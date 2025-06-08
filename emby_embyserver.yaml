@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  embyserver:
+    image: emby/embyserver:latest
+    container_name: embyserver
+    network_mode: host
+    environment:
+      - UID=1000
+      - GID=100
+      - GIDLIST=100
+    volumes:
+      - /etc/embyserver:/config
+      - type: bind
+        source: /mnt/nfs/media/
+        target: /mnt/media
+    devices:
+      - "/dev/dri:/dev/dri"
+    restart: always

@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  subconverter:
+    image: asdlokj1qpi23/subconverter:latest
+    container_name: subconverter
+    network_mode: host
+    environment:
+      - HTTP_PROXY=http://127.0.0.1:7890
+      - HTTPS_PROXY=http://127.0.0.1:7890
+    restart: always

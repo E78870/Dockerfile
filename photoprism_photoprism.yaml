@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  photoprism:
+    image: photoprism/photoprism
+    container_name: photoprism
+    restart: always
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    network_mode: host
+    environment:
+      - PHOTOPRISM_UPLOAD_NSFW="true"
+      - PHOTOPRISM_ADMIN_PASSWORD="[jpyp[tod,,_7468677476,_"
+    volumes:
+      - /etc/photoprism:/photoprism/storage
+      - /mnt/nfs/media:/photoprism/originals

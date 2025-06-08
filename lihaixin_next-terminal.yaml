@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  next-terminal:
+    image: lihaixin/next-terminal
+    container_name: next-terminal
+    hostname: next-terminal
+    network_mode: host
+    environment:
+      - DOMAIN=shokaku8426546.eu.org
+      - HOSTNAME=next-terminal
+    volumes:
+      - /root/next-terminal/data:/usr/local/next-terminal/data
+      - /etc/cert:/etc/cert
+    restart: always

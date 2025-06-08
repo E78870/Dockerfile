@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  wechat_container_demo:
+    image: ricwang/docker-wechat:latest
+    container_name: wechat_container_demo
+    network_mode: host
+    environment:
+      - LANG=zh_CN.UTF-8
+      - USER_ID=0
+      - GROUP_ID=0
+      - WEB_AUDIO=1
+      - TZ=Asia/Shanghai
+    volumes:
+      - /home/docker/wechat/.xwechat:/root/.xwechat
+      - /home/docker/wechat/xwechat_files:/root/xwechat_files
+      - /home/docker/wechat/download:/root/download
+      - /dev/snd:/dev/snd
+    privileged: true
+    restart: always

@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  subgen:
+    image: mccloud/subgen:cpu
+    container_name: subgen
+    network_mode: host
+    environment:
+      - WHISPER_MODEL=medium
+      - WHISPER_THREADS=3
+      - PROCADDEDMEDIA=True
+      - PROCMEDIAONPLAY=True
+      - NAMESUBLANG=chi
+      - SKIPIFINTERNALSUBLANG=chi
+      - SKIPIFEXTERNALSUB=True
+      - JELLYFINTOKEN=c248af1bb7d74e4386837bf9d1686088
+      - JELLYFINSERVER=http://192.168.1.143:8096
+      - WEBHOOKPORT=9000
+      - CONCURRENT_TRANSCRIPTIONS=2
+      - WORD_LEVEL_HIGHLIGHT=False
+      - DEBUG=True
+      - USE_PATH_MAPPING=True
+      - PATH_MAPPING_FROM=/mnt/media
+      - PATH_MAPPING_TO=/media
+      - FORCE_DETECTED_LANGUAGE_TO=zh
+      - TRANSCRIBE_OR_TRANSLATE=transcribe
+      - TRANSCRIBE_DEVICE=cpu
+      - CLEAR_VRAM_ON_COMPLETE=True
+      - MODEL_PATH=/subgen/models
+      - UPDATE=True
+      - APPEND=False
+      - USE_MODEL_PROMPT=True
+      - CUSTOM_MODEL_PROMPT="你好，欢迎来到我的讲座。"
+      - LRC_FOR_AUDIO_FILES=True
+      - CUSTOM_REGROUP=cm_sl=84_sl=42++++++1
+      - SUBGEN_KWARGS='{"vad": true, "prefix": "对，没错，继续。"}'
+      - http_proxy=http://192.168.1.134:7890
+      - https_proxy=http://192.168.1.134:7890
+    volumes:
+      - /mnt/nfs/media:/media
+      - /home/docker/subgen/models:/subgen/models

@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  stirling-pdf:
+    image: frooodle/s-pdf:latest
+    container_name: stirling-pdf
+    network_mode: host
+    environment:
+      - LANGS=zh-cn
+      - DOCKER_ENABLE_SECURITY=true
+      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=true
+      - LANGS=zh_CN
+    volumes:
+      - /home/docker/stirling-pdf/trainingData:/usr/share/tessdata
+      - /home/docker/stirling-pdf/extraConfigs:/configs
+      - /home/docker/stirling-pdf/logs:/logs
+    restart: always

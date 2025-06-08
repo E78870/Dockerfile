@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  qinglong:
+    image: whyour/qinglong:latest
+    container_name: qinglong
+    hostname: qinglong
+    network_mode: host
+    volumes:
+      - /etc/ql:/ql/data
+    restart: always

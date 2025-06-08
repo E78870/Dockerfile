@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    ports:
+      - "65432:80"
+    volumes:
+      - /home/fx8350/vw-data/:/data/
+    restart: always

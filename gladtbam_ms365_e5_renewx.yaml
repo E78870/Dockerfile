@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  renewx:
+    image: gladtbam/ms365_e5_renewx:latest
+    container_name: RenewX
+    network_mode: host
+    restart: always

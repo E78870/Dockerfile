@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: "0:0"
+    network_mode: host
+    volumes:
+      - /home/docker/jellyfin/config:/config
+      - /home/docker/jellyfin/cache:/cache
+      - /mnt/sdb1/media/anime:/mnt/media/anime
+      - /mnt/sdb1/media/drama:/mnt/media/drama
+      - /mnt/sdb1/media/film:/mnt/media/film
+      - /mnt/sdb1/qbdownload/anime_qb:/mnt/media/anime_qb
+      - /mnt/sdb1/qbdownload/drama_qb:/mnt/media/drama_qb
+      - /mnt/sdb1/qbdownload/film_qb:/mnt/media/film_qb
+    restart: always

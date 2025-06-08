@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  onedrive_00:
+    image: driveone/onedrive:latest
+    container_name: onedrive_00
+    tty: true
+    stdin_open: true
+    volumes:
+      - type: bind
+        source: /home/docker/onedrive/onedrive_conf_00
+        target: /onedrive/conf
+      - type: bind
+        source: /home/docker/onedrive/
+        target: /linux_conf/home/docker/onedrive/
+    network_mode: host

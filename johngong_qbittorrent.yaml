@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  qbittorrent:
+    image: johngong/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: host
+    environment:
+      - QB_WEBUI_PORT=23333
+      - QB_EE_BIN=true
+      - UID=${UID}
+      - GID=1000
+      - UMASK=022
+    volumes:
+      - /home/docker/qbittorrent:/config
+      - /mnt/sdb1/qbdownload:/Downloads
+    restart: always

@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  lanraragi:
+    image: difegue/lanraragi
+    container_name: lanraragi
+    network_mode: host
+    environment:
+      - MOJO_PROXY=1
+      - http_proxy=http://192.168.1.134:7890
+      - https_proxy=http://192.168.1.134:7890
+    volumes:
+      - /mnt/nfs/lanraragi/content:/home/koyomi/lanraragi/content
+      - /home/docker/lanraragi/database:/home/koyomi/lanraragi/database
+      - /home/docker/lanraragi/content/thumb:/home/koyomi/lanraragi/content/thumb
+      - /home/docker/lanraragi/database/sideloaded_plugin:/home/koyomi/lanraragi/lib/LANraragi/Plugin/Sideloaded
+    restart: always
