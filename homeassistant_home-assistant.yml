@@ -1,0 +1,8 @@
+services:
+  home-assistants:
+    image: homeassistant/home-assistant
+    container_name: home-assistants
+    network_mode: host
+    volumes:
+      - /home/docker/homeassistant:/config
+    restart: unless-stopped

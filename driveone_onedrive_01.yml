@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   onedrive_01:
     image: driveone/onedrive:latest

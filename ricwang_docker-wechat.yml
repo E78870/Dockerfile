@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   wechat_container_demo:
     image: ricwang/docker-wechat:latest

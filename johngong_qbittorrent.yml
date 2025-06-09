@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   qbittorrent:
     image: johngong/qbittorrent:latest

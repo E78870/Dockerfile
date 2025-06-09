@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   embyserver:
     image: emby/embyserver:latest
