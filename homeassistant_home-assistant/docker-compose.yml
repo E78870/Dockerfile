@@ -3,6 +3,11 @@ services:
     image: homeassistant/home-assistant
     container_name: home-assistants
     network_mode: host
+        environment:
+      - LANG=C.UTF-8
+      - LC_ALL=C.UTF-8
+      - PYTHONIOENCODING=utf-8
+      - PYTHONUTF8=1
     volumes:
       - /home/docker/homeassistant:/config
     restart: unless-stopped
