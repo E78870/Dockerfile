@@ -1,0 +1,15 @@
+---
+services:
+  iventoy:
+    image: ziggyds/iventoy:latest
+    container_name: iventoy
+    restart: always
+    privileged: true
+    network_mode: host
+    volumes:
+      - isos:/mnt/sda1/image
+volumes:
+  isos:
+    external: true
+  config:
+    external: true
