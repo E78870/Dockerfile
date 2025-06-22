@@ -7,6 +7,6 @@ services:
     network_mode: host
     volumes:
       - ./image:/app/iso   # 本地目录挂载（相对路径）
-      - ./config:/app/data # 本地目录挂载（相对路径）
+      - ./data:/app/data # 本地目录挂载（相对路径）
     environment:
       - AUTO_START_PXE=true
