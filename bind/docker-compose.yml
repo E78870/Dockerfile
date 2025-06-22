@@ -1,0 +1,8 @@
+services:
+  bind:
+    image: internetsystemsconsortium/bind9:latest
+    container_name: bind
+    restart: always
+    volumes:
+      - ./data:/data
+    network_mode: host

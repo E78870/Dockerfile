@@ -1,4 +1,3 @@
----
 services:
   iventoy:
     image: ziggyds/iventoy:latest
@@ -7,9 +6,7 @@ services:
     privileged: true
     network_mode: host
     volumes:
-      - isos:/mnt/sda1/image
-volumes:
-  isos:
-    external: true
-  config:
-    external: true
+      - ./image:/app/iso   # 本地目录挂载（相对路径）
+      - ./config:/app/data # 本地目录挂载（相对路径）
+    environment:
+      - AUTO_START_PXE=true
