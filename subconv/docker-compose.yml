@@ -1,0 +1,9 @@
+version: '3'
+services:
+  subconv:
+    image: wouisb/subconv:latest
+    container_name: subconv
+    restart: always
+    network: host
+    volumes:
+      - ./config.yml:/app/config.yml
