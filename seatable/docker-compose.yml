@@ -1,0 +1,84 @@
+services:
+  seatable-server:
+    image: ${SEATABLE_IMAGE:-seatable/seatable-developer:latest}
+    restart: unless-stopped
+    container_name: seatable
+    ports:
+      - 80:80
+      - ${SEATABLE_SSL_PORT:-}:443
+    volumes:
+      - "${SEATABLE_VOLUMES:-/opt/seatable/seatable-data}:/shared"
+    environment:
+      - SEATABLE_MYSQL_DB_HOST=${SEATABLE_MYSQL_DB_HOST:-db}
+      - SEATABLE_MYSQL_DB_PORT=${SEATABLE_MYSQL_DB_PORT:-3306}
+      - INIT_SEATABLE_MYSQL_ROOT_PASSWORD=${INIT_SEATABLE_MYSQL_ROOT_PASSWORD:-}
+      - SEATABLE_MYSQL_DB_USER=${SEATABLE_MYSQL_DB_USER:-seatable}
+      - SEATABLE_MYSQL_DB_PASSWORD=${SEATABLE_MYSQL_DB_PASSWORD:?Variable is not set or empty}
+      - SEATABLE_MYSQL_DB_DTABLE_DB_NAME=${SEATABLE_MYSQL_DB_DTABLE_DB_NAME:-dtable_db}
+      - SEATABLE_MYSQL_DB_CCNET_DB_NAME=${SEATABLE_MYSQL_DB_CCNET_DB_NAME:-ccnet_db}
+      - SEATABLE_MYSQL_DB_SEAFILE_DB_NAME=${SEATABLE_MYSQL_DB_SEAFILE_DB_NAME:-seafile_db}
+      - SEATABLE_SERVER_HOSTNAME=${SEATABLE_SERVER_HOSTNAME:?Variable is not set or empty}
+      - SEATABLE_SERVER_PROTOCOL=${SEATABLE_SERVER_PROTOCOL:-http}
+      - SEATABLE_SERVER_LETSENCRYPT=${SEATABLE_SERVER_LETSENCRYPT:-False}
+      - SEATABLE_ADMIN_EMAIL=${INIT_SEATABLE_ADMIN_EMAIL:-}
+      - SEATABLE_ADMIN_PASSWORD=${INIT_SEATABLE_ADMIN_PASSWORD:-}
+      - TIME_ZONE=${TIME_ZONE}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY:?Variable is not set or empty}
+      - ENABLE_PYTHON_SCRIPT=${ENABLE_PYTHON_SCRIPT:-false}
+      - PYTHON_SCHEDULER_URL=${PYTHON_SCHEDULER_URL:-http://python-scheduler}
+      - PYTHON_SCHEDULER_AUTH_TOKEN=${PYTHON_SCHEDULER_AUTH_TOKEN:-}
+      - REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+      - ENABLE_SEADOC=${ENABLE_SEADOC:-false}
+      - SEADOC_SERVER_URL=${SEATABLE_SERVER_PROTOCOL:-}://${SEATABLE_SERVER_HOSTNAME:-}/sdoc-server
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - frontend-net
+      - backend-seatable-net
+
+  db:
+    image: ${SEATABLE_DB_IMAGE:-mariadb:10.11}
+    restart: unless-stopped
+    container_name: seatable-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${INIT_SEATABLE_MYSQL_ROOT_PASSWORD:-}
+      - MYSQL_LOG_CONSOLE=true
+      - MARIADB_MYSQL_LOCALHOST_USER=1
+      - MARIADB_MYSQL_LOCALHOST_GRANTS=USAGE
+      - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - "${SEATABLE_MYSQL_VOLUMES:-/opt/seatable/mysql-data}:/var/lib/mysql"
+    networks:
+      - backend-seatable-net
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/usr/local/bin/healthcheck.sh",
+          "--connect",
+          "--mariadbupgrade",
+          "--innodb_initialized",
+        ]
+      interval: 20s
+      start_period: 30s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: ${SEATABLE_REDIS_IMAGE:-redis:5.0.7}
+    restart: unless-stopped
+    container_name: seatable-redis
+    networks:
+      - backend-seatable-net
+
+networks:
+  frontend-net:
+    name: frontend-net
+  backend-seatable-net:
+    name: backend-seatable-net
