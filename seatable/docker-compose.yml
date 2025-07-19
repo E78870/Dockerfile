@@ -1,7 +1,7 @@
 services:
   seatable-server:
     image: ${SEATABLE_IMAGE:-seatable/seatable-developer:latest}
-    restart: unless-stopped
+    restart: always
     container_name: seatable
     ports:
       - 80:80
